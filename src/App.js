@@ -1,3 +1,4 @@
+import { render } from '@testing-library/react';
 import React, { Component } from 'react';
 // import logo from './logo.svg';
 // import './App.css';
@@ -14,15 +15,41 @@ import React, { Component } from 'react';
   
 // }
 
+
+// reactにはバーチャルドムが存在し、どのドムが変更されたか、管理していて、変更点だけを実際のドムに反映している。
+
 const App = ( )=>{
+	const profiles = [
+		{name: "Taro", age: 10},
+		{name: "Hanako", age: 5},
+		{name: "NoName"}
+	]
 	return <div> 
-					<User name={"Taro"} age={10} />
+				{
+					profiles.map((profile, index) => {
+						return <User name={profile.name} age={profile.age} key={index} />
+					})
+				}
+				
+				<User name={"Taro"} age={10} />
+				<User name={"Hanako"} age={5} />
 					
 			</div>
 }
 
 const User = ( props )=>{
-return <div> Hi, I am {props.name} and {props.age}</div>
+return <div> Hi, I am {props.name} and {props.age}years old!</div>
+}
+
+// defaultProps はpropsが空の時に入る値。
+
+// 構文
+// コンポーネント.defaultProps = {
+// 	name: 値,
+// 	name: 値,
+// }
+User.defaultProps = {
+	age: 1
 }
 
 
