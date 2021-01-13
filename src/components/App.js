@@ -1,9 +1,9 @@
-import { render } from '@testing-library/react';
+
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 
+import { increment, decrement } from '../actions'
 
-const App = ( )=> ( <Counter></Counter> )
-	
 
 
 // 
@@ -13,40 +13,31 @@ const App = ( )=> ( <Counter></Counter> )
 // stateを使う時、前にthisをつける
 
 // classコンポーネント
-class Counter extends Component{
-
-	// constructorは初期化処理で実行されるメソッド
-	constructor(props){
-		super(props)
-		console.log(this.state)
-		this.state = { count: 0}
-	}
-	handlePlusButton = () => {//handlePlusButtonと言う自作関数
-		this.setState({ count: this.state.count + 1})
-		// stateの値を帰る時、setStateを使って変更する
-
-		// this.state = { count: 0}
-		// state の値を変更するとき、上記のような初期設定時の記述方法での変更はしてはいけない。変更できない。
-		// setStateを使わないとDOMが再レンダーされない。
-	}
-	handleMinusButton = () => {//handlePlusButtonと言う自作関数
-		this.setState({ count: this.state.count - 1})
-		
-	}
-
+class App extends Component{
 	render(){
-		console.log(this.state)
+		const props = this.props
+
 		return(
 			<React.Fragment>
-				<div>count: { this.state.count }</div>
-				<button onClick={this.handlePlusButton}>+1</button>
-				<button onClick={this.handleMinusButton}>-1</button>
+				<div>value: { props.value }</div>
+				<button onClick={props.increment}>+1</button>
+				<button onClick={props.decrement}>-1</button>
 			</React.Fragment>
 		)
 	}
 }
 
+const mapStateToProps = state => ({ value: state.count.value })
+
+// const mapDispatchToProps = dispatch => ({
+// 	 increment: () => dispatch(increment()) ,
+// 	 decrement: () => dispatch(decrement()) 
+// 	})
+
+// 上記の関数は下記のように書き換えることができる。（）
+
+const mapDispatchToProps = ({ increment, decrement })
 
 
+export default connect(mapStateToProps, mapDispatchToProps)(App)
 
-export default App;
