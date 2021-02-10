@@ -26,7 +26,9 @@ class EventsNew extends Component{
 		this.props.history.push('/')
 	}
 	render(){
-		const { handleSubmit } = this.props
+		// pristine はテキストが入力されていないと送信できない。これの判定ができる
+		const { handleSubmit, pristine,submitting } = this.props
+		console.log(submitting)
 		return(
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 				<div>
@@ -36,7 +38,7 @@ class EventsNew extends Component{
 					<Field label="Body" name="body" type="text" component={this.renderField} />
 				</div>
 				<div>
-					<input type="submit" value="Submit" disabled={false} />
+					<input type="submit" value="Submit" disabled={pristine || submitting} />
 					<Link to="/">Cancel</Link>
 				</div>
 			</form>
