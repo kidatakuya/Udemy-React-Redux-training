@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import _ from 'lodash'
@@ -14,6 +13,7 @@ class EventsIndex extends Component{
 		 this.props.readEvents()
 	}
 	renderEvents(){
+		// console.log(_.map(this.props.events))
 		return _.map(this.props.events, event =>(
 			<tr key={event.id}>
 				<td>{event.id}</td>
